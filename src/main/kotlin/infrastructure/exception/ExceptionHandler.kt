@@ -1,6 +1,5 @@
 package infrastructure.exception
 
-import org.example.example.infrastructure.dto.response.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.http.MediaType
 import shared.exception.BusinessException
 import com.fasterxml.jackson.databind.exc.InvalidFormatException
+import infrastructure.dto.response.error.ErrorResponse
 import org.springframework.validation.FieldError
 
 @RestControllerAdvice
