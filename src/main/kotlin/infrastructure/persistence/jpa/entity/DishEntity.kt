@@ -15,7 +15,7 @@ data class DishEntity(
     val name: String,
 
     @Column(nullable = false, length = 1000)
-    val description: String,
+    val description: String? = null,
 
     @Column(nullable = false, precision = 10, scale = 2)
     val price: BigDecimal,
