@@ -16,8 +16,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
     "shared",
     "infrastructure.exception"
 ])
-class ApplicationLab3
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<ApplicationLab3>(*args)
+    runApplication<Application>(*args)
 }
