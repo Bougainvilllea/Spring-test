@@ -5,6 +5,7 @@ import domain.service.DishService
 import infrastructure.dto.requests.dish.DishCreateRequest
 import infrastructure.dto.requests.dish.DishUpdateRequest
 import infrastructure.dto.response.DishResponse
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -25,7 +26,7 @@ class DishController(
     }
 
     @PostMapping
-    fun createDish(@RequestBody createRequest: DishCreateRequest): ResponseEntity<DishResponse> {
+    fun createDish(@Valid @RequestBody createRequest: DishCreateRequest): ResponseEntity<DishResponse> {
         val dishFromRequest = dishMapper.toDomain(createRequest)
         val (resultDish, wasCreated) = dishService.createOrGetDish(dishFromRequest)
         val response = dishMapper.toResponse(resultDish)
@@ -42,7 +43,7 @@ class DishController(
     }
 
     @PutMapping("/{id}")
-    fun updateDish(@PathVariable id: Long, @RequestBody updateRequest: DishUpdateRequest): ResponseEntity<DishResponse> {
+    fun updateDish(@PathVariable id: Long, @Valid @RequestBody updateRequest: DishUpdateRequest): ResponseEntity<DishResponse> {
         val dish = dishMapper.toDomain(updateRequest).copy(id = id)
         val updatedDish = dishService.updateDish(dish)
         val response = dishMapper.toResponse(updatedDish)

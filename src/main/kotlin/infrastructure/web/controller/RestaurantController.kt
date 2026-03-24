@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 import shared.mapper.DishMapper
 import shared.mapper.RestaurantMapper
 import domain.service.RestaurantService
+import jakarta.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/restaurants")
@@ -27,7 +28,7 @@ class RestaurantController(
     }
 
     @PostMapping
-    fun createRestaurant(@RequestBody createRequest: RestaurantCreateRequest): ResponseEntity<RestaurantResponse> {
+    fun createRestaurant(@Valid @RequestBody createRequest: RestaurantCreateRequest): ResponseEntity<RestaurantResponse> {
         val restaurant = restaurantMapper.toDomain(createRequest)
         val (resultRestaurant, wasCreated) = restaurantService.createRestaurant(restaurant)
         val response = restaurantMapper.toResponse(resultRestaurant)

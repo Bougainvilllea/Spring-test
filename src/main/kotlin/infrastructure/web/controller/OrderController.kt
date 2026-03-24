@@ -1,5 +1,6 @@
 package infrastructure.web.controller
 
+import jakarta.validation.Valid
 import org.example.example.domain.model.OrderStatus
 import org.example.example.domain.service.OrderService
 import org.example.example.infrastructure.dto.requests.order.OrderCreateRequest
@@ -29,7 +30,7 @@ class OrderController(
     }
 
     @PostMapping
-    fun createOrder(@RequestBody createRequest: OrderCreateRequest): ResponseEntity<OrderResponse> {
+    fun createOrder(@Valid  @RequestBody createRequest: OrderCreateRequest): ResponseEntity<OrderResponse> {
         val order = orderService.createOrder(createRequest.userId, createRequest.dishIds)
         val response = orderMapper.toResponse(order)
         return ResponseEntity.status(HttpStatus.CREATED).body(response)

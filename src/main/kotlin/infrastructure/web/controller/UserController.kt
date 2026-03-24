@@ -4,6 +4,7 @@ import org.example.example.infrastructure.dto.requests.user.UserData
 import application.dto.response.UserResponse
 import domain.model.User
 import domain.service.UserService
+import jakarta.validation.Valid
 import org.example.example.infrastructure.dto.requests.user.UserUpdateRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -26,7 +27,7 @@ class UserController(
     }
 
     @PostMapping
-    fun createUser(@RequestBody userData: UserData): ResponseEntity<UserResponse> {
+    fun createUser(@Valid @RequestBody userData: UserData): ResponseEntity<UserResponse> {
         val userFromData = userMapper.toDomain(userData)
         val (resultUser, wasCreated) = userService.createOrGetUser(userFromData)
         val response = userMapper.toResponse(resultUser)
@@ -43,7 +44,7 @@ class UserController(
     }
 
     @PutMapping("/{id}")
-    fun updateUser(@PathVariable id: Int, @RequestBody updateRequest: UserUpdateRequest): ResponseEntity<UserResponse> {
+    fun updateUser(@PathVariable id: Int, @Valid  @RequestBody updateRequest: UserUpdateRequest): ResponseEntity<UserResponse> {
         val user = userMapper.toDomain(updateRequest).copy(id = id.toLong())
         val updatedUser = userService.updateUser(user)
         val response = userMapper.toResponse(updatedUser)
