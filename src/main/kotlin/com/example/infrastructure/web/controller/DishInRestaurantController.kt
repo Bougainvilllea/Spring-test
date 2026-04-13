@@ -1,0 +1,29 @@
+package com.example.infrastructure.web.controller
+
+import com.example.domain.service.DishService
+import com.example.infrastructure.dto.response.DishResponse
+import jakarta.validation.Valid
+import com.example.infrastructure.dto.requests.dish.DishCreateRequest
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import com.example.shared.utils.mapper.DishMapper
+
+@RestController
+@RequestMapping("/api/v1/restaurants/{restaurantId}/dishes")
+class DishInRestaurantController(
+    private val dishService: DishService,
+    private val dishMapper: DishMapper
+) {
+
+    @PostMapping
+    fun createDishInRestaurant(
+        @PathVariable restaurantId: Long,
+        @Valid @RequestBody createRequest: DishCreateRequest
+    ): ResponseEntity<DishResponse> {
+        val dish = dishMapper.toDomain(createRequest)
+        val createdDish = dishService.createDishInRestaurant(restaurantId, dish)
+        val response = dishMapper.toResponse(createdDish)
+        return ResponseEntity.status(HttpStatus.CREATED).body(response)
+    }
+}

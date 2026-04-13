@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: db
+  services:
+    postgres:
+      image: postgres:17
+      environment:
+        POSTGRES_DB: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - "5432:5432"
+      volumes:
+        - pgdata:/var/lib/postgresql/data
+
+  volumes:
+    pgdata:
+
+logging:
+  level:
+    root: INFO
+    com.example.example: DEBUG
+    org.springframework.web: WARN
+    org.hibernate.SQL: DEBUG
