@@ -1,4 +1,4 @@
-package com.example.infrastructure.adapter.controller
+package com.example.infrastructure.web.controller
 
 import jakarta.validation.Valid
 import com.example.domain.model.OrderStatus

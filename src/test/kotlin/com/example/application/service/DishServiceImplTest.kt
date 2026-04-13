@@ -30,7 +30,7 @@ class DishServiceImplTest {
     @InjectMocks
     private lateinit var dishService: DishServiceImpl
 
-    private val testDish = Dish(
+    private val sampleDish = Dish(
         id = 1L,
         name = "Test Dish",
         description = "Delicious test dish",
@@ -39,28 +39,26 @@ class DishServiceImplTest {
         restaurantId = 1L
     )
 
-    private val testRestaurant = Restaurant(
+    private val sampleRestaurant = Restaurant(
         id = 1L,
         name = "Test Restaurant",
         address = "Test Address 123"
     )
 
-    // ==================== getDishById TESTS ====================
-
     @Test
     @DisplayName("Should return dish by id when exists")
-    fun `should return dish by id when exists`() {
-        `when`(dishRepositoryPort.findById(1L)).thenReturn(testDish)
+    fun findDishById_ValidId_ReturnsDish() {
+        `when`(dishRepositoryPort.findById(1L)).thenReturn(sampleDish)
 
-        val result = dishService.getDishById(1L)
+        val outcome = dishService.getDishById(1L)
 
-        assertEquals(testDish, result)
+        assertEquals(sampleDish, outcome)
         verify(dishRepositoryPort).findById(1L)
     }
 
     @Test
     @DisplayName("Should throw DishNotFound when dish does not exist")
-    fun `should throw DishNotFound when dish does not exist`() {
+    fun findDishById_InvalidId_ThrowsException() {
         `when`(dishRepositoryPort.findById(999L)).thenReturn(null)
 
         assertThrows<BusinessException.DishNotFound> {
@@ -69,94 +67,88 @@ class DishServiceImplTest {
         verify(dishRepositoryPort).findById(999L)
     }
 
-    // ==================== getAllDishes TESTS ====================
-
     @Test
     @DisplayName("Should return all dishes without filtering")
-    fun `should return all dishes without filtering`() {
-        val dishes = listOf(testDish, testDish.copy(id = 2L, name = "Second"))
+    fun fetchAllDishes_NoFilter_ReturnsAllItems() {
+        val dishes = listOf(sampleDish, sampleDish.copy(id = 2L, name = "Second"))
         `when`(dishRepositoryPort.findAll()).thenReturn(dishes)
 
-        val result = dishService.getAllDishes(null)
+        val outcome = dishService.getAllDishes(null)
 
-        assertEquals(2, result.size)
+        assertEquals(2, outcome.size)
         verify(dishRepositoryPort).findAll()
     }
 
     @Test
     @DisplayName("Should filter dishes by name part")
-    fun `should filter dishes by name part`() {
+    fun fetchAllDishes_WithNameFilter_ReturnsFilteredList() {
         val dishes = listOf(
-            testDish,
-            testDish.copy(id = 2L, name = "Pizza"),
-            testDish.copy(id = 3L, name = "Pasta")
+            sampleDish,
+            sampleDish.copy(id = 2L, name = "Pizza"),
+            sampleDish.copy(id = 3L, name = "Pasta")
         )
         `when`(dishRepositoryPort.findAll()).thenReturn(dishes)
 
-        val result = dishService.getAllDishes("pizz")
+        val outcome = dishService.getAllDishes("pizz")
 
-        assertEquals(1, result.size)
-        assertEquals("Pizza", result[0].name)
+        assertEquals(1, outcome.size)
+        assertEquals("Pizza", outcome[0].name)
         verify(dishRepositoryPort).findAll()
     }
 
     @Test
     @DisplayName("Should return empty list when filter matches no dishes")
-    fun `should return empty list when filter matches no dishes`() {
-        val dishes = listOf(testDish, testDish.copy(id = 2L, name = "Pizza"))
+    fun fetchAllDishes_NoMatchingFilter_ReturnsEmptyList() {
+        val dishes = listOf(sampleDish, sampleDish.copy(id = 2L, name = "Pizza"))
         `when`(dishRepositoryPort.findAll()).thenReturn(dishes)
 
-        val result = dishService.getAllDishes("xyz")
+        val outcome = dishService.getAllDishes("xyz")
 
-        assertTrue(result.isEmpty())
+        assertTrue(outcome.isEmpty())
         verify(dishRepositoryPort).findAll()
     }
 
-    // ==================== createOrGetDish TESTS ====================
-
     @Test
     @DisplayName("Should return existing dish when creating duplicate")
-    fun `should return existing dish when creating duplicate`() {
-        val newDish = testDish.copy(id = null)
-        `when`(dishRepositoryPort.findByName(testDish.name)).thenReturn(testDish)
+    fun saveOrFetchDish_DuplicateName_ReturnsExisting() {
+        val newDish = sampleDish.copy(id = null)
+        `when`(dishRepositoryPort.findByName(sampleDish.name)).thenReturn(sampleDish)
 
-        val (result, wasCreated) = dishService.createOrGetDish(newDish)
+        val (outcome, created) = dishService.createOrGetDish(newDish)
 
-        assertFalse(wasCreated)
-        assertEquals(testDish, result)
-        verify(dishRepositoryPort).findByName(testDish.name)
+        assertFalse(created)
+        assertEquals(sampleDish, outcome)
+        verify(dishRepositoryPort).findByName(sampleDish.name)
         verify(dishRepositoryPort, never()).create(any())
     }
 
     @Test
     @DisplayName("Should create new dish when name does not exist")
-    fun `should create new dish when name does not exist`() {
-        val newDish = testDish.copy(id = null)
+    fun saveOrFetchDish_NewName_CreatesAndReturns() {
+        val newDish = sampleDish.copy(id = null)
         `when`(dishRepositoryPort.findByName(newDish.name)).thenReturn(null)
-        `when`(dishRepositoryPort.create(newDish)).thenReturn(testDish)
+        `when`(dishRepositoryPort.create(newDish)).thenReturn(sampleDish)
 
-        val (result, wasCreated) = dishService.createOrGetDish(newDish)
+        val (outcome, created) = dishService.createOrGetDish(newDish)
 
-        assertTrue(wasCreated)
-        assertEquals(testDish, result)
+        assertTrue(created)
+        assertEquals(sampleDish, outcome)
         verify(dishRepositoryPort).findByName(newDish.name)
         verify(dishRepositoryPort).create(newDish)
     }
 
-    // ==================== createDishInRestaurant TESTS ====================
-
     @Test
     @DisplayName("Should create dish in restaurant successfully")
-    fun `should create dish in restaurant successfully`() {
-        val newDish = testDish.copy(id = null, restaurantId = null)
+    fun addDishToEatery_ValidData_CreatesDish() {
+        val newDish = sampleDish.copy(id = null, restaurantId = null)
 
-        `when`(restaurantRepositoryPort.findById(1L)).thenReturn(testRestaurant)
+        `when`(restaurantRepositoryPort.findById(1L)).thenReturn(sampleRestaurant)
         `when`(dishRepositoryPort.findByName(newDish.name)).thenReturn(null)
-        `when`(dishRepositoryPort.create(any())).thenReturn(testDish)
+        `when`(dishRepositoryPort.create(any())).thenReturn(sampleDish)
 
-        val result = dishService.createDishInRestaurant(1L, newDish)
+        val outcome = dishService.createDishInRestaurant(1L, newDish)
 
-        assertEquals(testDish, result)
+        assertEquals(sampleDish, outcome)
         verify(restaurantRepositoryPort).findById(1L)
         verify(dishRepositoryPort).findByName(newDish.name)
         verify(dishRepositoryPort).create(any())
@@ -164,11 +156,11 @@ class DishServiceImplTest {
 
     @Test
     @DisplayName("Should throw exception when creating dish in non-existent restaurant")
-    fun `should throw exception when creating dish in non-existent restaurant`() {
+    fun addDishToEatery_MissingRestaurant_ThrowsError() {
         `when`(restaurantRepositoryPort.findById(999L)).thenReturn(null)
 
         assertThrows<BusinessException.RestaurantNotFound> {
-            dishService.createDishInRestaurant(999L, testDish)
+            dishService.createDishInRestaurant(999L, sampleDish)
         }
         verify(restaurantRepositoryPort).findById(999L)
         verify(dishRepositoryPort, never()).findByName(any())
@@ -177,11 +169,11 @@ class DishServiceImplTest {
 
     @Test
     @DisplayName("Should throw exception when creating dish with duplicate name in restaurant")
-    fun `should throw exception when creating dish with duplicate name in restaurant`() {
-        val newDish = testDish.copy(id = null, restaurantId = null)
+    fun addDishToEatery_DuplicateName_ThrowsError() {
+        val newDish = sampleDish.copy(id = null, restaurantId = null)
 
-        `when`(restaurantRepositoryPort.findById(1L)).thenReturn(testRestaurant)
-        `when`(dishRepositoryPort.findByName(newDish.name)).thenReturn(testDish)
+        `when`(restaurantRepositoryPort.findById(1L)).thenReturn(sampleRestaurant)
+        `when`(dishRepositoryPort.findByName(newDish.name)).thenReturn(sampleDish)
 
         assertThrows<BusinessException.DishNameAlreadyExists> {
             dishService.createDishInRestaurant(1L, newDish)
@@ -191,20 +183,18 @@ class DishServiceImplTest {
         verify(dishRepositoryPort, never()).create(any())
     }
 
-    // ==================== updateDish TESTS ====================
-
     @Test
     @DisplayName("Should update dish successfully")
-    fun `should update dish successfully`() {
-        val updatedDish = testDish.copy(name = "Updated Dish")
+    fun modifyDish_ValidData_UpdatesAndReturns() {
+        val updatedDish = sampleDish.copy(name = "Updated Dish")
 
-        `when`(dishRepositoryPort.findById(1L)).thenReturn(testDish)
+        `when`(dishRepositoryPort.findById(1L)).thenReturn(sampleDish)
         `when`(dishRepositoryPort.findByName(updatedDish.name)).thenReturn(null)
         `when`(dishRepositoryPort.update(updatedDish)).thenReturn(updatedDish)
 
-        val result = dishService.updateDish(updatedDish)
+        val outcome = dishService.updateDish(updatedDish)
 
-        assertEquals("Updated Dish", result.name)
+        assertEquals("Updated Dish", outcome.name)
         verify(dishRepositoryPort).findById(1L)
         verify(dishRepositoryPort).findByName(updatedDish.name)
         verify(dishRepositoryPort).update(updatedDish)
@@ -212,8 +202,8 @@ class DishServiceImplTest {
 
     @Test
     @DisplayName("Should throw DishNotFound when updating non-existent dish")
-    fun `should throw DishNotFound when updating non-existent dish`() {
-        val updatedDish = testDish.copy(id = 999L)
+    fun modifyDish_MissingDish_ThrowsError() {
+        val updatedDish = sampleDish.copy(id = 999L)
 
         `when`(dishRepositoryPort.findById(999L)).thenReturn(null)
 
@@ -227,11 +217,11 @@ class DishServiceImplTest {
 
     @Test
     @DisplayName("Should throw exception when updating with duplicate name")
-    fun `should throw exception when updating with duplicate name`() {
-        val existingDish = testDish.copy(id = 2L, name = "Existing Dish")
-        val updatedDish = testDish.copy(name = "Existing Dish")
+    fun modifyDish_DuplicateName_ThrowsError() {
+        val existingDish = sampleDish.copy(id = 2L, name = "Existing Dish")
+        val updatedDish = sampleDish.copy(name = "Existing Dish")
 
-        `when`(dishRepositoryPort.findById(1L)).thenReturn(testDish)
+        `when`(dishRepositoryPort.findById(1L)).thenReturn(sampleDish)
         `when`(dishRepositoryPort.findByName("Existing Dish")).thenReturn(existingDish)
 
         assertThrows<BusinessException.DishNameAlreadyExists> {

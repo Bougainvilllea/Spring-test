@@ -1,4 +1,4 @@
-package com.example.infrastructure.adapter.controller
+package com.example.infrastructure.web.controller
 
 import com.example.infrastructure.dto.requests.restaurant.RestaurantCreateRequest
 import com.example.infrastructure.dto.requests.restaurant.RestaurantUpdateRequest

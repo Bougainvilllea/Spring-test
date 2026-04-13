@@ -1,4 +1,4 @@
-package com.example.infrastructure.adapter.controller
+package com.example.infrastructure.web.controller
 
 import com.example.domain.model.Dish
 import com.example.domain.service.DishService

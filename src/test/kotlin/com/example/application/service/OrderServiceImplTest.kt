@@ -37,7 +37,7 @@ class OrderServiceImplTest {
     @InjectMocks
     private lateinit var orderService: OrderServiceImpl
 
-    private val testUser = User(
+    private val sampleUser = User(
         id = 1L,
         email = "test@example.com",
         firstName = "John",
@@ -45,7 +45,7 @@ class OrderServiceImplTest {
         isActive = true
     )
 
-    private val testDish1 = Dish(
+    private val sampleDish1 = Dish(
         id = 1L,
         name = "Pizza",
         description = "Delicious pizza",
@@ -54,7 +54,7 @@ class OrderServiceImplTest {
         restaurantId = 1L
     )
 
-    private val testDish2 = Dish(
+    private val sampleDish2 = Dish(
         id = 2L,
         name = "Pasta",
         description = "Italian pasta",
@@ -63,30 +63,28 @@ class OrderServiceImplTest {
         restaurantId = 1L
     )
 
-    private val testOrder = Order(
+    private val sampleOrder = Order(
         id = 1L,
         userId = 1L,
         status = OrderStatus.PENDING,
         createdAt = LocalDateTime.now(),
-        dishes = listOf(testDish1, testDish2)
+        dishes = listOf(sampleDish1, sampleDish2)
     )
-
-    // ==================== getOrderById TESTS ====================
 
     @Test
     @DisplayName("Should return order by id when exists")
-    fun `should return order by id when exists`() {
-        `when`(orderRepositoryPort.findById(1L)).thenReturn(testOrder)
+    fun fetchOrderById_ValidId_ReturnsOrder() {
+        `when`(orderRepositoryPort.findById(1L)).thenReturn(sampleOrder)
 
-        val result = orderService.getOrderById(1L)
+        val outcome = orderService.getOrderById(1L)
 
-        assertEquals(testOrder, result)
+        assertEquals(sampleOrder, outcome)
         verify(orderRepositoryPort).findById(1L)
     }
 
     @Test
     @DisplayName("Should throw OrderNotFound when order does not exist")
-    fun `should throw OrderNotFound when order does not exist`() {
+    fun fetchOrderById_InvalidId_ThrowsError() {
         `when`(orderRepositoryPort.findById(999L)).thenReturn(null)
 
         val exception = assertThrows<BusinessException.OrderNotFound> {
@@ -97,17 +95,15 @@ class OrderServiceImplTest {
         verify(orderRepositoryPort).findById(999L)
     }
 
-    // ==================== getAllOrders TESTS ====================
-
     @Test
     @DisplayName("Should return all orders when no filters provided")
-    fun `should return all orders when no filters provided`() {
-        val orders = listOf(testOrder, testOrder.copy(id = 2L))
+    fun fetchAllOrders_NoFilters_ReturnsAll() {
+        val orders = listOf(sampleOrder, sampleOrder.copy(id = 2L))
         `when`(orderRepositoryPort.findAll()).thenReturn(orders)
 
-        val result = orderService.getAllOrders(null, null)
+        val outcome = orderService.getAllOrders(null, null)
 
-        assertEquals(2, result.size)
+        assertEquals(2, outcome.size)
         verify(orderRepositoryPort).findAll()
         verify(orderRepositoryPort, never()).findAllByUserId(any())
         verify(orderRepositoryPort, never()).findAllByStatus(any())
@@ -116,13 +112,13 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should return orders filtered by userId")
-    fun `should return orders filtered by userId`() {
-        val orders = listOf(testOrder)
+    fun fetchAllOrders_WithUserId_ReturnsFiltered() {
+        val orders = listOf(sampleOrder)
         `when`(orderRepositoryPort.findAllByUserId(1L)).thenReturn(orders)
 
-        val result = orderService.getAllOrders(1L, null)
+        val outcome = orderService.getAllOrders(1L, null)
 
-        assertEquals(1, result.size)
+        assertEquals(1, outcome.size)
         verify(orderRepositoryPort).findAllByUserId(1L)
         verify(orderRepositoryPort, never()).findAll()
         verify(orderRepositoryPort, never()).findAllByStatus(any())
@@ -131,13 +127,13 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should return orders filtered by status")
-    fun `should return orders filtered by status`() {
-        val orders = listOf(testOrder)
+    fun fetchAllOrders_WithStatus_ReturnsFiltered() {
+        val orders = listOf(sampleOrder)
         `when`(orderRepositoryPort.findAllByStatus(OrderStatus.PENDING)).thenReturn(orders)
 
-        val result = orderService.getAllOrders(null, OrderStatus.PENDING)
+        val outcome = orderService.getAllOrders(null, OrderStatus.PENDING)
 
-        assertEquals(1, result.size)
+        assertEquals(1, outcome.size)
         verify(orderRepositoryPort).findAllByStatus(OrderStatus.PENDING)
         verify(orderRepositoryPort, never()).findAll()
         verify(orderRepositoryPort, never()).findAllByUserId(any())
@@ -146,34 +142,32 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should return orders filtered by userId and status")
-    fun `should return orders filtered by userId and status`() {
-        val orders = listOf(testOrder)
+    fun fetchAllOrders_WithUserIdAndStatus_ReturnsFiltered() {
+        val orders = listOf(sampleOrder)
         `when`(orderRepositoryPort.findAllByUserIdAndStatus(1L, OrderStatus.PENDING)).thenReturn(orders)
 
-        val result = orderService.getAllOrders(1L, OrderStatus.PENDING)
+        val outcome = orderService.getAllOrders(1L, OrderStatus.PENDING)
 
-        assertEquals(1, result.size)
+        assertEquals(1, outcome.size)
         verify(orderRepositoryPort).findAllByUserIdAndStatus(1L, OrderStatus.PENDING)
         verify(orderRepositoryPort, never()).findAll()
         verify(orderRepositoryPort, never()).findAllByUserId(any())
         verify(orderRepositoryPort, never()).findAllByStatus(any())
     }
 
-    // ==================== createOrder TESTS ====================
-
     @Test
     @DisplayName("Should create order successfully")
-    fun `should create order successfully`() {
+    fun placeNewOrder_ValidData_CreatesOrder() {
         val dishIds = listOf(1L, 2L)
 
-        `when`(userRepositoryPort.findById(1L)).thenReturn(testUser)
-        `when`(dishRepositoryPort.findById(1L)).thenReturn(testDish1)
-        `when`(dishRepositoryPort.findById(2L)).thenReturn(testDish2)
-        `when`(orderRepositoryPort.create(any())).thenReturn(testOrder)
+        `when`(userRepositoryPort.findById(1L)).thenReturn(sampleUser)
+        `when`(dishRepositoryPort.findById(1L)).thenReturn(sampleDish1)
+        `when`(dishRepositoryPort.findById(2L)).thenReturn(sampleDish2)
+        `when`(orderRepositoryPort.create(any())).thenReturn(sampleOrder)
 
-        val result = orderService.createOrder(1L, dishIds)
+        val outcome = orderService.createOrder(1L, dishIds)
 
-        assertEquals(testOrder, result)
+        assertEquals(sampleOrder, outcome)
         verify(userRepositoryPort).findById(1L)
         verify(dishRepositoryPort).findById(1L)
         verify(dishRepositoryPort).findById(2L)
@@ -182,7 +176,7 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw OrderValidationError when user not found")
-    fun `should throw OrderValidationError when user not found`() {
+    fun placeNewOrder_MissingUser_ThrowsError() {
         val dishIds = listOf(1L)
 
         `when`(userRepositoryPort.findById(999L)).thenReturn(null)
@@ -199,10 +193,10 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw OrderValidationError when dish list is empty")
-    fun `should throw OrderValidationError when dish list is empty`() {
+    fun placeNewOrder_EmptyDishList_ThrowsError() {
         val dishIds = emptyList<Long>()
 
-        `when`(userRepositoryPort.findById(1L)).thenReturn(testUser)
+        `when`(userRepositoryPort.findById(1L)).thenReturn(sampleUser)
 
         val exception = assertThrows<BusinessException.OrderValidationError> {
             orderService.createOrder(1L, dishIds)
@@ -216,11 +210,11 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw OrderValidationError when dish not found")
-    fun `should throw OrderValidationError when dish not found`() {
+    fun placeNewOrder_MissingDish_ThrowsError() {
         val dishIds = listOf(1L, 999L)
 
-        `when`(userRepositoryPort.findById(1L)).thenReturn(testUser)
-        `when`(dishRepositoryPort.findById(1L)).thenReturn(testDish1)
+        `when`(userRepositoryPort.findById(1L)).thenReturn(sampleUser)
+        `when`(dishRepositoryPort.findById(1L)).thenReturn(sampleDish1)
         `when`(dishRepositoryPort.findById(999L)).thenReturn(null)
 
         val exception = assertThrows<BusinessException.OrderValidationError> {
@@ -234,76 +228,74 @@ class OrderServiceImplTest {
         verify(orderRepositoryPort, never()).create(any())
     }
 
-    // ==================== updateOrderStatus TESTS ====================
-
     @Test
     @DisplayName("Should update order status from PENDING to CONFIRMED")
-    fun `should update order status from PENDING to CONFIRMED`() {
-        val pendingOrder = testOrder.copy(status = OrderStatus.PENDING)
-        val confirmedOrder = testOrder.copy(status = OrderStatus.CONFIRMED)
+    fun changeOrderStatus_PendingToConfirmed_UpdatesSuccessfully() {
+        val pendingOrder = sampleOrder.copy(status = OrderStatus.PENDING)
+        val confirmedOrder = sampleOrder.copy(status = OrderStatus.CONFIRMED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(pendingOrder)
         `when`(orderRepositoryPort.update(any())).thenReturn(confirmedOrder)
 
-        val result = orderService.updateOrderStatus(1L, OrderStatus.CONFIRMED)
+        val outcome = orderService.updateOrderStatus(1L, OrderStatus.CONFIRMED)
 
-        assertEquals(OrderStatus.CONFIRMED, result.status)
+        assertEquals(OrderStatus.CONFIRMED, outcome.status)
         verify(orderRepositoryPort).findById(1L)
         verify(orderRepositoryPort).update(any())
     }
 
     @Test
     @DisplayName("Should update order status from PENDING to CANCELLED")
-    fun `should update order status from PENDING to CANCELLED`() {
-        val pendingOrder = testOrder.copy(status = OrderStatus.PENDING)
-        val cancelledOrder = testOrder.copy(status = OrderStatus.CANCELLED)
+    fun changeOrderStatus_PendingToCancelled_UpdatesSuccessfully() {
+        val pendingOrder = sampleOrder.copy(status = OrderStatus.PENDING)
+        val cancelledOrder = sampleOrder.copy(status = OrderStatus.CANCELLED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(pendingOrder)
         `when`(orderRepositoryPort.update(any())).thenReturn(cancelledOrder)
 
-        val result = orderService.updateOrderStatus(1L, OrderStatus.CANCELLED)
+        val outcome = orderService.updateOrderStatus(1L, OrderStatus.CANCELLED)
 
-        assertEquals(OrderStatus.CANCELLED, result.status)
+        assertEquals(OrderStatus.CANCELLED, outcome.status)
         verify(orderRepositoryPort).findById(1L)
         verify(orderRepositoryPort).update(any())
     }
 
     @Test
     @DisplayName("Should update order status from CONFIRMED to DELIVERED")
-    fun `should update order status from CONFIRMED to DELIVERED`() {
-        val confirmedOrder = testOrder.copy(status = OrderStatus.CONFIRMED)
-        val deliveredOrder = testOrder.copy(status = OrderStatus.DELIVERED)
+    fun changeOrderStatus_ConfirmedToDelivered_UpdatesSuccessfully() {
+        val confirmedOrder = sampleOrder.copy(status = OrderStatus.CONFIRMED)
+        val deliveredOrder = sampleOrder.copy(status = OrderStatus.DELIVERED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(confirmedOrder)
         `when`(orderRepositoryPort.update(any())).thenReturn(deliveredOrder)
 
-        val result = orderService.updateOrderStatus(1L, OrderStatus.DELIVERED)
+        val outcome = orderService.updateOrderStatus(1L, OrderStatus.DELIVERED)
 
-        assertEquals(OrderStatus.DELIVERED, result.status)
+        assertEquals(OrderStatus.DELIVERED, outcome.status)
         verify(orderRepositoryPort).findById(1L)
         verify(orderRepositoryPort).update(any())
     }
 
     @Test
     @DisplayName("Should update order status from CONFIRMED to CANCELLED")
-    fun `should update order status from CONFIRMED to CANCELLED`() {
-        val confirmedOrder = testOrder.copy(status = OrderStatus.CONFIRMED)
-        val cancelledOrder = testOrder.copy(status = OrderStatus.CANCELLED)
+    fun changeOrderStatus_ConfirmedToCancelled_UpdatesSuccessfully() {
+        val confirmedOrder = sampleOrder.copy(status = OrderStatus.CONFIRMED)
+        val cancelledOrder = sampleOrder.copy(status = OrderStatus.CANCELLED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(confirmedOrder)
         `when`(orderRepositoryPort.update(any())).thenReturn(cancelledOrder)
 
-        val result = orderService.updateOrderStatus(1L, OrderStatus.CANCELLED)
+        val outcome = orderService.updateOrderStatus(1L, OrderStatus.CANCELLED)
 
-        assertEquals(OrderStatus.CANCELLED, result.status)
+        assertEquals(OrderStatus.CANCELLED, outcome.status)
         verify(orderRepositoryPort).findById(1L)
         verify(orderRepositoryPort).update(any())
     }
 
     @Test
     @DisplayName("Should throw InvalidOrderStatusTransition when changing from PENDING to DELIVERED")
-    fun `should throw InvalidOrderStatusTransition when changing from PENDING to DELIVERED`() {
-        val pendingOrder = testOrder.copy(status = OrderStatus.PENDING)
+    fun changeOrderStatus_PendingToDelivered_ThrowsError() {
+        val pendingOrder = sampleOrder.copy(status = OrderStatus.PENDING)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(pendingOrder)
 
@@ -319,8 +311,8 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw OrderValidationError when changing status of DELIVERED order")
-    fun `should throw OrderValidationError when changing status of DELIVERED order`() {
-        val deliveredOrder = testOrder.copy(status = OrderStatus.DELIVERED)
+    fun changeOrderStatus_DeliveredToAnything_ThrowsError() {
+        val deliveredOrder = sampleOrder.copy(status = OrderStatus.DELIVERED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(deliveredOrder)
 
@@ -335,8 +327,8 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw OrderValidationError when changing status of CANCELLED order")
-    fun `should throw OrderValidationError when changing status of CANCELLED order`() {
-        val cancelledOrder = testOrder.copy(status = OrderStatus.CANCELLED)
+    fun changeOrderStatus_CancelledToAnything_ThrowsError() {
+        val cancelledOrder = sampleOrder.copy(status = OrderStatus.CANCELLED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(cancelledOrder)
 
@@ -351,7 +343,7 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw OrderNotFound when updating status of non-existent order")
-    fun `should throw OrderNotFound when updating status of non-existent order`() {
+    fun changeOrderStatus_MissingOrder_ThrowsError() {
         `when`(orderRepositoryPort.findById(999L)).thenReturn(null)
 
         val exception = assertThrows<BusinessException.OrderNotFound> {
@@ -365,8 +357,8 @@ class OrderServiceImplTest {
 
     @Test
     @DisplayName("Should throw InvalidOrderStatusTransition when changing from CONFIRMED to PENDING")
-    fun `should throw InvalidOrderStatusTransition when changing from CONFIRMED to PENDING`() {
-        val confirmedOrder = testOrder.copy(status = OrderStatus.CONFIRMED)
+    fun changeOrderStatus_ConfirmedToPending_ThrowsError() {
+        val confirmedOrder = sampleOrder.copy(status = OrderStatus.CONFIRMED)
 
         `when`(orderRepositoryPort.findById(1L)).thenReturn(confirmedOrder)
 

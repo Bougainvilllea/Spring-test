@@ -72,9 +72,21 @@
         </dependency>
 
         <dependency>
-        <groupId>io.github.oshai</groupId>
-        <artifactId>kotlin-logging-jvm</artifactId>
-        <version>7.0.13</version>
+            <groupId>io.github.oshai</groupId>
+            <artifactId>kotlin-logging-jvm</artifactId>
+            <version>7.0.13</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- Testcontainers: модуль PostgreSQL -->
@@ -112,11 +124,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
 
     </dependencies>
 

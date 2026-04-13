@@ -1,4 +1,4 @@
-package com.example.infrastructure.adapter.controller
+package com.example.infrastructure.web.controller
 
 import com.example.infrastructure.dto.requests.user.UserData
 import com.example.infrastructure.dto.response.UserResponse

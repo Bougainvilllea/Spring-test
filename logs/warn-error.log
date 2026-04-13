@@ -1,0 +1,87 @@
+2026-04-14 02:10:30.611 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-14 02:12:32.050 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.050 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "dishes" does not exist, skipping
+2026-04-14 02:12:32.052 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.052 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "order_dishes" does not exist, skipping
+2026-04-14 02:12:32.053 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.053 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "order_dishes" does not exist, skipping
+2026-04-14 02:12:32.055 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.055 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "orders" does not exist, skipping
+2026-04-14 02:12:32.056 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.056 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "dishes" does not exist, skipping
+2026-04-14 02:12:32.058 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.058 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "order_dishes" does not exist, skipping
+2026-04-14 02:12:32.059 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.059 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "orders" does not exist, skipping
+2026-04-14 02:12:32.060 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.060 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "restaurants" does not exist, skipping
+2026-04-14 02:12:32.062 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:12:32.062 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2026-04-14 02:12:34.608 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-14 02:12:36.531 [main] WARN  c.e.i.e.GlobalExceptionHandler - Malformed JSON request: JSON parse error: Instantiation of [simple type, class com.example.infrastructure.dto.requests.restaurant.RestaurantCreateRequest] value failed for JSON property address due to missing (therefore NULL) value for creator parameter address which is a non-nullable type
+2026-04-14 02:12:38.077 [main] WARN  c.e.i.e.GlobalExceptionHandler - Illegal argument: Restaurant address must not be empty
+2026-04-14 02:12:38.131 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:12:38.499 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:12:38.563 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant name already exists: Restaurant with name 'First Restaurant' already exists
+2026-04-14 02:12:38.738 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 1 not found
+2026-04-14 02:12:38.906 [main] WARN  c.e.i.e.GlobalExceptionHandler - Illegal argument: Restaurant name must not be empty
+2026-04-14 02:12:39.108 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:12:39.274 [main] WARN  c.e.i.e.GlobalExceptionHandler - Malformed JSON request: JSON parse error: Instantiation of [simple type, class com.example.infrastructure.dto.requests.restaurant.RestaurantCreateRequest] value failed for JSON property name due to missing (therefore NULL) value for creator parameter name which is a non-nullable type
+2026-04-14 02:12:39.301 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:12:40.121 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@734fbcce (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.127 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@526be64b (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.129 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@5ccc9904 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.130 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@34924218 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.141 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@41f39cf (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.161 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@9cbdeb9 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.168 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3177723d (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.169 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@17d37489 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.172 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@6affe6fd (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:12:40.174 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@3d16d30d (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:13:10.123 [SpringApplicationShutdownHook] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 08001
+2026-04-14 02:13:10.123 [SpringApplicationShutdownHook] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - HikariPool-1 - Connection is not available, request timed out after 30003ms.
+2026-04-14 02:13:10.123 [SpringApplicationShutdownHook] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Подсоединение по адресу localhost:62109 отклонено. Проверьте что хост и порт указаны правильно и что postmaster принимает TCP/IP-подсоединения.
+2026-04-14 02:13:10.126 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [HikariPool-1 - Connection is not available, request timed out after 30003ms.] [n/a]
+2026-04-14 02:16:35.353 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.353 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "dishes" does not exist, skipping
+2026-04-14 02:16:35.356 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.356 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "order_dishes" does not exist, skipping
+2026-04-14 02:16:35.357 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.357 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "order_dishes" does not exist, skipping
+2026-04-14 02:16:35.360 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.360 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - relation "orders" does not exist, skipping
+2026-04-14 02:16:35.362 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.362 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "dishes" does not exist, skipping
+2026-04-14 02:16:35.363 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.363 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "order_dishes" does not exist, skipping
+2026-04-14 02:16:35.365 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.365 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "orders" does not exist, skipping
+2026-04-14 02:16:35.367 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.367 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "restaurants" does not exist, skipping
+2026-04-14 02:16:35.370 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Warning Code: 0, SQLState: 00000
+2026-04-14 02:16:35.370 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - table "users" does not exist, skipping
+2026-04-14 02:16:38.106 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-14 02:16:41.519 [main] WARN  c.e.i.e.GlobalExceptionHandler - Illegal argument: Restaurant address must not be empty
+2026-04-14 02:16:42.167 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 1 not found
+2026-04-14 02:16:42.204 [main] WARN  c.e.i.e.GlobalExceptionHandler - Malformed JSON request: JSON parse error: Instantiation of [simple type, class com.example.infrastructure.dto.requests.restaurant.RestaurantCreateRequest] value failed for JSON property name due to missing (therefore NULL) value for creator parameter name which is a non-nullable type
+2026-04-14 02:16:42.296 [main] WARN  c.e.i.e.GlobalExceptionHandler - Illegal argument: Restaurant name must not be empty
+2026-04-14 02:16:42.489 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:16:42.580 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant name already exists: Restaurant with name 'First Restaurant' already exists
+2026-04-14 02:16:42.622 [main] WARN  c.e.i.e.GlobalExceptionHandler - Malformed JSON request: JSON parse error: Instantiation of [simple type, class com.example.infrastructure.dto.requests.restaurant.RestaurantCreateRequest] value failed for JSON property address due to missing (therefore NULL) value for creator parameter address which is a non-nullable type
+2026-04-14 02:16:42.657 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:16:42.757 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:16:42.825 [main] WARN  c.e.i.e.GlobalExceptionHandler - Restaurant not found: Restaurant with id 999999 not found
+2026-04-14 02:16:43.824 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@35ca9129 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.825 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@70c16bd2 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.826 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@11e3ff3a (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.827 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@34a5429d (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.828 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7cf4e9ac (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.828 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@710821b (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.829 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@904b7ec (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.829 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@172badfb (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.831 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4c498f3b (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:16:43.832 [SpringApplicationShutdownHook] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4fcadcf3 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+2026-04-14 02:17:13.835 [SpringApplicationShutdownHook] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 08001
+2026-04-14 02:17:13.835 [SpringApplicationShutdownHook] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - HikariPool-1 - Connection is not available, request timed out after 30009ms.
+2026-04-14 02:17:13.835 [SpringApplicationShutdownHook] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - Подсоединение по адресу localhost:62402 отклонено. Проверьте что хост и порт указаны правильно и что postmaster принимает TCP/IP-подсоединения.
+2026-04-14 02:17:13.837 [SpringApplicationShutdownHook] WARN  o.s.b.f.s.DisposableBeanAdapter - Invocation of destroy method failed on bean with name 'entityManagerFactory': org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution [HikariPool-1 - Connection is not available, request timed out after 30009ms.] [n/a]
