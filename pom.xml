@@ -9,9 +9,9 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>lab2</artifactId>
+    <artifactId>labs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lab2</name>
+    <name>labs</name>
     <description>Spring Boot project</description>
 
     <properties>
@@ -75,6 +75,47 @@
         <groupId>io.github.oshai</groupId>
         <artifactId>kotlin-logging-jvm</artifactId>
         <version>7.0.13</version>
+        </dependency>
+
+        <!-- Testcontainers: модуль PostgreSQL -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Testcontainers: интеграция с JUnit 5 -->
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-mock-mvc</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>spring-mock-mvc-kotlin-extensions</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito.kotlin</groupId>
+            <artifactId>mockito-kotlin</artifactId>
+            <version>5.2.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>

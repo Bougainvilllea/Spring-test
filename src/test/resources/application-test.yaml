@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    root: WARN
+    com.example.delivery: DEBUG
+

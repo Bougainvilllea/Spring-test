@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Как же я верю нейронке, что это правильно -->
 <configuration>
     <!-- Свойства -->
     <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
     <property name="LOG_PATH" value="./logs"/>
 
+    <!-- Консольный аппендер -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
@@ -11,6 +13,7 @@
         </encoder>
     </appender>
 
+    <!-- Файловый аппендер для всех логов -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/application.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -24,6 +27,7 @@
         </encoder>
     </appender>
 
+    <!-- Отдельный файловый аппендер для WARN и ERROR логов -->
     <appender name="FILE_WARN_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_PATH}/warn-error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -40,6 +44,7 @@
         </filter>
     </appender>
 
+    <!-- Асинхронные аппендеры для улучшения производительности -->
     <appender name="ASYNC_CONSOLE" class="ch.qos.logback.classic.AsyncAppender">
         <appender-ref ref="CONSOLE"/>
         <queueSize>512</queueSize>
@@ -58,18 +63,21 @@
         <discardingThreshold>0</discardingThreshold>
     </appender>
 
+    <!-- Настройка уровней логирования для пакетов -->
     <logger name="application.service" level="INFO"/>
     <logger name="infrastructure.exception" level="INFO"/>
     <logger name="org.springframework.web" level="WARN"/>
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.springframework.security" level="WARN"/>
 
+    <!-- Для отладки можно включить DEBUG уровень для конкретных пакетов -->
     <logger name="application.service" level="DEBUG" additivity="false">
         <appender-ref ref="ASYNC_CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
         <appender-ref ref="ASYNC_FILE_WARN_ERROR"/>
     </logger>
 
+    <!-- Корневой логгер -->
     <root level="INFO">
         <appender-ref ref="ASYNC_CONSOLE"/>
         <appender-ref ref="ASYNC_FILE"/>
